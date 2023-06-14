@@ -27,25 +27,26 @@ Windows:
 
 0. Open a file without Nushell
 
-   open sample.json
+       open sample.json
 
 1. Same with Nushell
 
-   open sample.json      
+       nu
+       open sample.json      
 
-1. Open a file
+2. Open a file
 
-    open kulutus.xlsx
+       open kulutus.xlsx
 
-2. Extract certain data from the file
+3. Extract certain data from the file
 
     get Sheet1
 
-3. Save the extracted data to a new format
+4. Save the extracted data to a new format
 
     save kulutus.csv
 
-4. Piped together
+5. Piped together
 
     open kulutus.xlsx | get Sheet1 | save kulutus.csv | tail kulutus.csv
 
@@ -55,10 +56,30 @@ Windows:
 
 ## Custom report
 
-    az consumption usage list --only-show-errors | from json | select product pretaxCost | uniq-by product | sort-by -r pretaxCost | rename Palvelu Hinta | to csv
+0. Consumption report from Azure
 
+       az consumption usage list --only-show-errors
+
+1. Format report with Nushell
+
+       az consumption usage list --only-show-errors | from json
+
+2. Select, sort and rename columns of data
+
+    az consumption usage list --only-show-errors | from json | select product pretaxCost | uniq-by product | sort-by -r pretaxCost | rename Tuote Hinta
+
+2. Convert to CSV
+
+    az consumption usage list --only-show-errors | from json | select product pretaxCost | uniq-by product | sort-by -r pretaxCost | rename Tuote Hinta | to csv
 
 ## Homework
 Experiment with eye candy
 
-    'Azure & Friends' | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff' 
+    clear | "\n\n  Azure & Friends\n\n" | ansi gradient --fgstart '0x40c9ff' --fgend '0xe81cff' 
+
+
+## Links
+- [Nushell on GitHub](https://github.com/nushell/nushell)
+- [Nushell: The only shell you will ever need](https://medium.com/codex/nushell-the-only-shell-you-will-ever-need-faa2c38072d9)
+- [Why Nushell?](https://www.reillywood.com/blog/why-nu/)
+- [Advent of code 2022 challenge solution with Nu language](https://gist.github.com/rotvalli/bff00a509e96d884149916c411bb66ac)
